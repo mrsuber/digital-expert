@@ -1,0 +1,18 @@
+
+.posts__container{
+  /* border-top:inherit;border-bottom:inherit; */
+  display:flex;
+  flex-direction:column;
+  padding-left:0;
+  margin-bottom:2rem;
+  border-radius:.25rem;
+}
+.posts__list_group_item{
+  position:relative;
+  display:block;
+  padding:.5rem 1rem;
+  color:#212529;
+  text-decoration:none;
+  background-color:#fff;
+  border:1px solid rgba(0,0,0,.125);
+}

@@ -1,0 +1,18 @@
+.obtionContainer{
+  align-items: flex-start;
+  padding: 5px;
+}
+.obtionText{
+  margin: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.obtionsubContainer{
+  background-color: "#e8e8e8";
+  border-color: "#e8e8e8";
+  border-radius:10
+}
+.dropdownOption{
+  width: 100%;
+
+}
