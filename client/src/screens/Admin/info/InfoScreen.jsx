@@ -22,7 +22,7 @@ const [error,setError] =useState("")
   const [allUsers, setAllUsers] = useState([])
   const [popup, setPopup] = useState(false)
   const [data, setData] = useState('')
-
+  const [download, setDownload] = useState('')
 
   useEffect(()=>{
     if(!localStorage.getItem("authToken")){
@@ -85,8 +85,10 @@ const [error,setError] =useState("")
         }
       }
       try{
-        const res= await axios.get("/api/private/getallprodject",config);
-        setInfo(res.data.data)
+        const res= await axios.get("/api/fileupload/getallMultipleFiles",config);
+        setInfo(res.data)
+
+
       }catch(error){}
     }
 
@@ -96,8 +98,10 @@ const [error,setError] =useState("")
 
 
   const userPopup =(item)=>{
-    setPopup(true)
+
     setData(item)
+    setDownload('')
+    setPopup(true)
   }
 
 
@@ -155,8 +159,8 @@ let columns = [
     const newData= info.map(row=>{
       delete row.tableData
       delete row._id
-      delete row.SubmitedBy
-      delete row.Images
+      delete row.UserId
+      delete row.files
       delete row.createdAt
       delete row.updatedAt
       delete row.__v
@@ -173,38 +177,39 @@ let columns = [
 //download
     XLSX.writeFile(workbook,"IdData.xlsx")
   }
-  console.log(info)
-  const downloadPDF = ()=>{
 
-    const doc = new jsPDF()
-    doc.text("Information",20,10)
-    doc.autoTable({
-      Theme:'grid',
 
-      // body: info.map(col=>({...col,Images:col.Images[0].url})),
-      body:info,
-   columns: [
-     { header: 'FirstName', dataKey: 'FirstName' },
-     { header: 'LastName', dataKey: 'LastName' },
-     { header: 'DateOfBirth', dataKey: 'DateOfBirth' },
-     { header: 'IdCardNumber', dataKey: 'IdCardNumber' },
-     { header: 'MotherName', dataKey: 'MotherName' },
-     { header: 'PhoneNumber', dataKey: 'PhoneNumber' },
-     { header: 'PlaceOfBirth', dataKey: 'PlaceOfBirth' },
-     { header: 'Region', dataKey: 'Region' },
-     { header: 'Residence', dataKey: 'Residence' },
-     // { header: 'Images', dataKey: 'Images' },
 
-   ],
-    })
-    doc.save("table.pdf")
+
+// var base64 = getBase64Image(document.getElementById("imageid"));
+  const downloadPDF = async()=>{
+    const config = {
+      headers:{
+        "Content-Type":"application/json",
+        Authorization:`Bearer ${localStorage.getItem("authToken")}`
+
+      }
+    }
+    try{
+      const res= await axios.get("/download",config);
+      if(res){
+        setDownload(res.data)
+        setData('')
+        setPopup(true)
+      }
+
+
+
+    }catch(error){}
   }
+
+
 
   return (
     <>
     <Sidebar history={history} />
     <div className="admin__main">
-    {popup?<ViewPopUp setPopup={setPopup} info={data}/>:''}
+    {popup?<ViewPopUp setPopup={setPopup} info={data} download={download}/>:'' }
       {userInfo
         ?<Topbar avatar={userInfo.profilePic} loading={false}/>
         :<Topbar avatar={userInfo.profilePic} loading={true}/>

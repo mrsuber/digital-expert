@@ -4,6 +4,11 @@ const connectDB = require('./config/db')
 const errorHandler = require('./middleware/error')
 const path = require('path')
 const multer = require("multer")
+// working on generating pdf
+const expressLayouts = require('express-ejs-layouts')
+
+const downloadRoutes = require('./routes/downloadRoutes')
+
 
 
 
@@ -67,6 +72,13 @@ app.use('/api/auth',require('./routes/auth'))
 app.use('/api/private',require('./routes/private'))
 app.use('/api/fileupload', require('./routes/file-upload-routes'))
 
+//generate pdf
+app.use(expressLayouts)
+app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/docs/', express.static(path.join(__dirname,'docs')))
+app.use(downloadRoutes.routes)
 
 //on production
 if(process.env.NODE_ENV==="production"){

@@ -6,13 +6,13 @@ import {useReactToPrint} from 'react-to-print';
 
 
 
-const ViewPopUp = ({setPopup,userInfo,info}) => {
+const ViewPopUp = ({setPopup,userInfo,info,download}) => {
   const [error,setError] =useState("")
   const [infos,setInfos]=useState([]);
 
 useEffect(()=>{
   if(info) { const fetchUserInfo = async () =>{
-      const id = info.SubmitedBy
+      const id = info.UserId
       const config = {
         headers:{
           "Content-Type":"application/json",
@@ -116,19 +116,19 @@ const print = (id) =>{
               <dt className="id_photo_title ">Front Id Image</dt>
                 <dd>
 
-                <img src={info.Images[0].url} className="id__photo" alt=''/>
+                <img src={info.files[0].filePath} className="id__photo" alt=''/>
 
                 </dd>
                 <dt  className="id_photo_title">Back Id Image</dt>
                   <dd>
 
-                  <img src={info.Images[1].url} className="id__photo" alt=''/>
+                  <img src={info.files[1].filePath} className="id__photo" alt=''/>
 
                   </dd>
                   <dt  className="id_photo_title">Photo</dt>
                     <dd>
 
-                    <img src={info.Images[2].url} className="id__photo" alt=''/>
+                    <img src={info.files[2].filePath} className="id__photo" alt=''/>
 
                     </dd>
 
@@ -144,6 +144,19 @@ const print = (id) =>{
               <button className="popup__button" onClick={handlePrint}>print</button>
               </div>
           </div>}
+
+          {download && <div className="social2__select_family_card">
+
+
+          <div className="profile">
+          <div className="popup__button_container">
+          <a style={{textAlign:"center",textDecoration:'none'}}  className="popup__button" onClick={()=>setPopup(false)}>back</a>
+          <a href={download.path} target="__blank" className="popup__button" style={{textAlign:"center",textDecoration:'none'}}>Download</a>
+          </div>
+          </div>
+          </div>
+
+        }
 
 
 

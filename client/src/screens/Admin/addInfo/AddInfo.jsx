@@ -114,8 +114,24 @@ const registerHandler = async(e)=>{
     Images: images,
   }
 
-     const res= await axios.post("/api/private/createnewprodject",data,config);
-     console.log(res)
+  const formData = new FormData()
+  formData.append("id",id)
+  formData.append("firstName",firstName)
+  formData.append("lastName",lastName)
+  formData.append("dateOfBirth",dateOfBirth)
+  formData.append("placeOfBirth",placeOfBirth)
+  formData.append("motherName",motherName)
+  formData.append("phoneNumber",phoneNumber)
+  formData.append("idCardNumber",idCardNumber)
+  formData.append("region",region)
+  formData.append("residence",residence)
+  formData.append("files",idCardFront)
+  formData.append("files",idCardBack)
+  formData.append("files",passport1)
+
+
+     const res= await axios.post("/api/fileupload/multipleFiles",formData,config);
+    console.log(res)
      history.push("/")
   }catch(error){
     // setError(error.response.data.error)

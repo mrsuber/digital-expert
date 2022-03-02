@@ -19,9 +19,8 @@ const RecentInfoInput = () => {
       }
 
       try{
-        const res= await axios.get("/api/private/getallprodject",config);
-
-        setInfo(res.data.data)
+        const res= await axios.get("/api/fileupload/getallMultipleFiles",config);
+        setInfo(res.data)
 
       }catch(error){}
     }
