@@ -2,7 +2,7 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import MaterialTable from 'material-table'
 import {title, data, columns,tableIcons} from '../../../data/data'
-import {Sidebar,Topbar,Region} from '../../../components'
+import {Sidebar,Topbar,Region,Toast} from '../../../components'
 import {Delete,Edit,ZoomIn} from '@material-ui/icons';
 import {Link} from 'react-router-dom'
 import {db} from '../../../data/data'
@@ -28,48 +28,8 @@ const AddInfo = ({history,changeModalVisibility,setData,selectRegion=false,selec
   const [error,setError]=useState('')
   const [townData, setTownData] =useState([])
   const [townDataArray, setTownDataArray] =useState([])
+  const [show,setShow]=useState(false)
 
-  // FirstName: firstName,
-  // LastName: lastName,
-  // DateOfBirth: dateOfBirth,
-  // PlaceOfBirth:,
-  // MotherName:,
-  // PhoneNumber:,
-  // IdCardNumber:,
-  // Region:,
-  // Residence:,
-  // IdCardFront: idCardFront,
-  // IdCardBack: ,
-  // Passport1: ,
-
-  // const registerHandler= async (e)=>{
-  //
-  //   e.preventDefault()
-  //   const config = {
-  //     header:{
-  //       "Content-Type":"application/json"
-  //     }
-  //   }
-  //   if(password!==confirmpassword){
-  //     setPassword("")
-  //     setConfirmpassword("")
-  //     setTimeout(()=>{
-  //       setError("")
-  //     },5000)
-  //     return setError("Password do not match")
-  //   }
-  //
-  //   try{
-  //      const {data}= await axios.post("/api/auth/register",{username,email,password},config);
-  //      localStorage.setItem("userRegistrationStatus",data.success)
-  //      history.push("/")
-  //   }catch(error){
-  //     setError(error.response.data.error)
-  //       setTimeout(()=>{
-  //         setError("")
-  //       },5000)
-  //   }
-  // }
 
 
 const registerHandler = async(e)=>{
@@ -131,15 +91,16 @@ const registerHandler = async(e)=>{
 
 
      const res= await axios.post("/api/fileupload/multipleFiles",formData,config);
-    console.log(res)
+    // console.log(res)
      history.push("/")
   }catch(error){
-    // setError(error.response.data.error)
+    // setError(error.response.data.msg)
     //   setTimeout(()=>{
     //     setError("")
     //   },5000)
-
-    console.log(error)
+    setShow(true)
+      setError(error.response.data.msg)
+    // console.log(error.response.data.msg)
   }
 
 }
@@ -182,7 +143,15 @@ useEffect(()=>{
 idCardBack,
 passport1])
 
+let msg = {
+  title:"Error",
+  body: error
+}
 
+
+const handleShow =()=>{
+  setShow(false)
+}
   return (
 
     <>
@@ -191,11 +160,12 @@ passport1])
         <Topbar />
 
         <div className="register-container">
+        { show ? <Toast msg={msg} bgColor="social2-toast-red" handleShow={handleShow}/> : ''}
         <div className="align">
             <div class="register-box">
 
               <h2>Add Info</h2>
-              {error && <span className="error-message">{error}</span>}
+              
               <form onSubmit={registerHandler} >
                 <div class="user-box">
                     <input type="text" name="firstname" id="firstname"required="" value={firstName} onChange={(e) =>setFirstName(e.target.value)}/>
