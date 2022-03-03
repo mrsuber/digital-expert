@@ -24,43 +24,43 @@ const multipleFileUpload = async (req,res,next) =>{
 
 
   if(!req.body.id){
-    return res.status(400).json({msg:"please upload user id"})
+    return res.status(421).json({msg:"please upload user id"})
 
   }
 if(!req.body.firstName){
-  return res.status(400).json({msg:"please enter first name"})
+  return res.status(422).json({msg:"please enter first name"})
 
 }
 if(!req.body.lastName){
-  return res.status(400).json({msg:"please enter last name"})
+  return res.status(423).json({msg:"please enter last name"})
 
 }
 if(!req.body.dateOfBirth){
-  return res.status(400).json({msg:"please enter date of birth"})
+  return res.status(424).json({msg:"please enter date of birth"})
 
 }
 if(!req.body.placeOfBirth){
-  return res.status(400).json({msg:"please place of birth"})
+  return res.status(425).json({msg:"please place of birth"})
 
 }
 if(!req.body.motherName){
-  return res.status(400).json({msg:"please enter mother name"})
+  return res.status(426).json({msg:"please enter mother name"})
 
 }
 if(!req.body.phoneNumber){
-  return res.status(400).json({msg:"please Phone number"})
+  return res.status(427).json({msg:"please Phone number"})
 
 }
 if(!req.body.idCardNumber){
-  return res.status(400).json({msg:"please id card number"})
+  return res.status(428).json({msg:"please id card number"})
 
 }
 if(!req.body.region){
-  return res.status(400).json({msg:"please enter region"})
+  return res.status(429).json({msg:"please enter region"})
 
 }
 if(!req.body.residence){
-  return res.status(400).json({msg:"please residence"})
+  return res.status(430).json({msg:"please residence"})
 
 }
   try{
