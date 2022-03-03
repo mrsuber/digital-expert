@@ -16,7 +16,7 @@ const singleFileUpload = async (req,res,next) =>{
     await file.save();
     res.status(201).send('File Uploaded Successfully')
   }catch(error){
-    res.status(400).send(error.message)
+    res.status(411).send(error.message)
   }
 }
 
@@ -79,10 +79,10 @@ if(!req.body.residence){
 
     });
     if(count===0){
-      return res.status(400).json({msg:"please upload files"})
+      return res.status(412).json({msg:"please upload files"})
     }
     if(count!==3){
-      return res.status(400).json({msg:"please upload all files"})
+      return res.status(413).json({msg:"please upload all files"})
     }
 
     const multipleFiles = new MultipleFile({
@@ -102,7 +102,7 @@ if(!req.body.residence){
     await multipleFiles.save()
     res.status(201).json({msg:'success'})
   }catch(error){
-    res.status(422).send(error)
+    res.status(414).send(error)
   }
 }
 
@@ -120,7 +120,7 @@ const getallMultipleFiles = async (req,res,next)=>{
     const files = await MultipleFile.find()
     res.status(201).send(files)
   }catch(error){
-    res.status(401).send(error.message )
+    res.status(400).send(error.message )
   }
 }
 
