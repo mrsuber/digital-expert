@@ -16,7 +16,7 @@ const singleFileUpload = async (req,res,next) =>{
     await file.save();
     res.status(201).send('File Uploaded Successfully')
   }catch(error){
-    res.status(422).send(error)
+    res.status(400).send(error.message)
   }
 }
 
@@ -101,7 +101,7 @@ if(!req.body.residence){
     await multipleFiles.save()
     res.status(201).json({msg:'success'})
   }catch(error){
-    res.status(400).send(error.message)
+    res.status(422).send(error)
   }
 }
 
