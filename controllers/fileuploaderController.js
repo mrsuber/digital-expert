@@ -63,9 +63,12 @@ if(!req.body.residence){
   return res.status(430).json({msg:"please residence"})
 
 }
-  try{
+
     let filesArray =[]
     let count = 0
+if(!req.files) return res.status(431).json({msg:"please add files"})
+if(files.length < 3) return res.status(432).json({msg:"please input 3 images"})
+  try{
     req.files.forEach(element =>{
       count = count+1
       const file = {
