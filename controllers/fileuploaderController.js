@@ -22,6 +22,7 @@ const singleFileUpload = async (req,res,next) =>{
 
 const multipleFileUpload = async (req,res,next) =>{
 
+
   if(!req.body.id){
     return res.status(400).json({msg:"please upload user id"})
 
@@ -119,7 +120,7 @@ const getallMultipleFiles = async (req,res,next)=>{
     const files = await MultipleFile.find()
     res.status(201).send(files)
   }catch(error){
-    res.status(400).send(error.message )
+    res.status(401).send(error.message )
   }
 }
 
