@@ -89,8 +89,8 @@ const registerHandler = async(e)=>{
   formData.append("files",idCardBack)
   formData.append("files",passport1)
 
-
-     const res= await axios.post("/api/fileupload/multipleFiles",formData,config);
+  console.log(formData)
+     // const res= await axios.post("/api/fileupload/multipleFiles",formData,config);
     // console.log(res)
      history.push("/")
   }catch(error){
@@ -165,7 +165,7 @@ const handleShow =()=>{
             <div class="register-box">
 
               <h2>Add Info</h2>
-              
+
               <form onSubmit={registerHandler} >
                 <div class="user-box">
                     <input type="text" name="firstname" id="firstname"required="" value={firstName} onChange={(e) =>setFirstName(e.target.value)}/>
