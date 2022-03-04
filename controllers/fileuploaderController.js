@@ -21,7 +21,7 @@ const singleFileUpload = async (req,res,next) =>{
 }
 
 const multipleFileUpload = async (req,res,next) =>{
-
+  // console.log(req)
 
   if(!req.body.id){
     return res.status(421).json({msg:"please upload user id"})

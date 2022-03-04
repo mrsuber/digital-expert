@@ -89,8 +89,8 @@ const registerHandler = async(e)=>{
   formData.append("files",idCardBack)
   formData.append("files",passport1)
 
-  console.log(formData)
-     // const res= await axios.post("/api/fileupload/multipleFiles",formData,config);
+  // console.log(formData)
+     const res= await axios.post("/api/fileupload/multipleFiles",formData,config);
     // console.log(res)
      history.push("/")
   }catch(error){

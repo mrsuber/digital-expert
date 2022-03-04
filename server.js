@@ -100,7 +100,7 @@ if(process.env.NODE_ENV==="production"){
 
 const PORT = process.env.PORT || 5000;
 
-// const server = app.listen(PORT, ()=>console.log(`Server running on port http://192.168.8.101:${PORT}`))
+// const server = app.listen(PORT, ()=>console.log(`Server running on port http://192.168.150.101:${PORT}`))
 const server = app.listen(PORT, ()=>console.log(`Server running on port http://localhost:${PORT}`))
 
 //handle server crash error
